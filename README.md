@@ -2,6 +2,8 @@
 
 This presentation is based on the [Minitab Blog](https://blog.minitab.com/en/adventures-in-statistics-2/understanding-hypothesis-tests-why-we-need-to-use-hypothesis-tests-in-statistics) series.
 
+View the presentation with interactive widgets [here](https://macdobry.shinyapps.io/statsBasicsDynamic) or a static version [here](http://macdobry.net/teaching/statsBasicsStatic.html).
+
 Covers following topics:
 
 - sampling distribution,

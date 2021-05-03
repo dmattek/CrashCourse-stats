@@ -35,7 +35,7 @@ shinyApp(
         fluidRow(
           column(6,
                  numericInput("niPopMn", label = "Popul. mean:",
-                              value = 0, step = .1),
+                              value = 5., step = .1),
                  numericInput("niSampleSz", label = "Sample size:",
                               min = 2, value = 5, step = 1)
           ),
@@ -47,7 +47,10 @@ shinyApp(
           )
         ),
         
-        actionButton("butRedraw", "Draw a sample")
+        actionButton("butRedraw", "Draw a sample"),
+        
+        tags$hr(),
+        verbatimTextOutput("resText")
       ),
       
       mainPanel(
@@ -59,16 +62,19 @@ shinyApp(
   ## SERVER
   server = function(input, output) {
     
-    output$distPlot = renderPlot({
-      
-      locDumm = input$butRedraw
+    getSample = reactive({
+      locDummy = input$butRedraw
       
       locV = fGenSamples(input$niSampleSz, 
                          input$niSampleN, 
                          input$niPopMn, 
                          input$niPopSD)
+      return(locV)
+    })
+    
+    output$distPlot = renderPlot({
       
-      hist(locV, 
+      hist(getSample(), 
            freq = F, 
            main = sprintf("%d FOVs, %d cells per FOV", 
                           input$niSampleN, 
@@ -77,6 +83,15 @@ shinyApp(
       abline(v = input$niPopMn, 
              col = "#de3765", 
              lty = 2, lwd = 2)
+    })
+    
+    output$resText = renderText({
+      
+      locSample = getSample()
+      
+      sprintf("Mean of sample means = %.2f\nSD of sample means   = %.2f", 
+              mean(locSample),
+              sd(locSample))
     })
     
   }

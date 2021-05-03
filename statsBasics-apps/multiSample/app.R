@@ -8,20 +8,22 @@
 # Author: Maciej Dobrzynski, University of Bern
 
 
-#' Plot t-distribution with shaded region
+#' Plot t-distribution with a shaded region
 #'
-#' The x-axis is transformed according to $x' = \frac{x - \bar{x}}{\sigma / \sqrt{n}}$.
+#' The x-axis is transformed according to $x' = \frac{\bar{x} - \mu}{s / \sqrt{n}}$, 
+#' where $\bar{x}$ is the sample mean, $s$ is the standard deviation of the sample,
+#' $n$ is the sample size, and $\mu$ is the expected mean of the population.
 #' 
 #' @param nSz an integer, sample size.
-#' @param nMn a float, mean for x-axis transformation.
-#' @param nSD a float, sd for x-axis transformation.
+#' @param nMn a float, population mean for x-axis transformation.
+#' @param nSD a float, sample sd for x-axis transformation.
 #' @param vertLines a vector with x coordinates of vertical dashed lines.
 #' @param vertLinesCol a vector with colours for vertical lines.
 #' @param nFrac a float, fraction of the distribution to shade.
 #' @param xlim a two-element vector with x-axis limits.
 #' @param xn an integer with the number of points on the x-axis.
 #' @param inv logical, FALSE => inner region of the distribution is shaded; TRUE => tails of the distribution is shaded; missing => no shading
-#' @param ... additioal parameters passed to the `plot` function.
+#' @param ... additional parameters passed to the `plot` function.
 #'
 #' @return a plot.
 #' @export
@@ -80,20 +82,23 @@ shinyApp(
       sidebarPanel(
         fluidRow(
           column(6,
-                 numericInput("slPopMn", label = "Popul. mean:",
-                              value = 0, step = .1),
-                 numericInput("slSampleSz", label = "Sample size:",
+                 numericInput("niPopMn", label = "Popul. mean:",
+                              value = 5., step = .1),
+                 numericInput("niSampleSz", label = "Sample size:",
                               min = 2, value = 5, step = 1)
                  ),
           column(6,
-                 numericInput("slPopSD", label = "Popul. SD:",
+                 numericInput("niPopSD", label = "Popul. SD:",
                               min = .1, value = 1, step = .1)
                  )
         ),
         sliderInput("slCL", label = "Confidence level:",
                     min = 50, max = 100, value = 95, step = 1),
         
-        actionButton("butRedraw", "Draw a sample")
+        actionButton("butRedraw", "Draw a sample"),
+        
+        tags$hr(),
+        verbatimTextOutput("resText")
       ),
       
       mainPanel(
@@ -104,11 +109,12 @@ shinyApp(
   
   ## SERVER
   server = function(input, output) {
+    
     getSample = reactive({
       locDummy = input$butRedraw
-      return(rnorm(n = input$slSampleSz, 
-                   mean = input$slPopMn, 
-                   sd = input$slPopSD))
+      return(rnorm(n = input$niSampleSz, 
+                   mean = input$niPopMn, 
+                   sd = input$niPopSD))
     })
     
     output$distPlot = renderPlot({
@@ -116,13 +122,13 @@ shinyApp(
       locMn = mean(locSample)
       locSD = sd(locSample)
       locL = length(locSample)
-      locXlim = c(input$slPopMn - 3*input$slPopSD,
-                  input$slPopMn + 3*input$slPopSD)
+      locXlim = c(input$niPopMn - 3*input$niPopSD,
+                  input$niPopMn + 3*input$niPopSD)
       
       fPlotShadedTdist(nSz = locL,
                        nMn = locMn, 
                        nSD = locSD,
-                       vertLines = c(locMn, input$slPopMn),
+                       vertLines = c(locMn, input$niPopMn),
                        vertLinesCol = c("#7cb5ec", "#de3765"),
                        nFrac = input$slCL * 0.01,
                        xlim = locXlim,
@@ -130,6 +136,26 @@ shinyApp(
                        inv = F,
                        xlab = "",
                        ylab = "Density")
+      
+      legend(locXlim[1], 0.37,
+             legend = c("Population mean", "Sample mean"),
+             col = c("#de3765", "#7cb5ec"),
+             lty = c(2,2), lwd = c(2,2), bty = "n")
+    })
+    
+    output$resText = renderText({
+      
+      locSample = getSample()
+      
+      resT = t.test(locSample, 
+                    mu = input$niPopMn, 
+                    conf.level = input$slCL * 0.01, 
+                    alternative = "two.sided")
+      
+      sprintf("Confidence interval:\n[%.2f, %.2f]\n\nSample mean = %.2f\nSample SD   = %.2f", 
+              resT$conf.int[1], resT$conf.int[2], 
+              mean(locSample),
+              sd(locSample))
     })
     
   }
