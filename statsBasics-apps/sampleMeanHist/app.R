@@ -65,6 +65,11 @@ shinyApp(
     getSample = reactive({
       locDummy = input$butRedraw
       
+      req(input$niSampleSz)
+      req(input$niSampleN)
+      req(input$niPopMn)
+      req(input$niPopSD)
+      
       locV = fGenSamples(input$niSampleSz, 
                          input$niSampleN, 
                          input$niPopMn, 
@@ -73,13 +78,17 @@ shinyApp(
     })
     
     output$distPlot = renderPlot({
+
+
       
       hist(getSample(), 
            freq = F, 
            main = sprintf("%d FOVs, %d cells per FOV", 
                           input$niSampleN, 
                           input$niSampleSz), 
-           xlab = "Mean FI in a FOV")
+           xlab = "Mean FI in a FOV", 
+           xlim = c(input$niPopMn - 2*input$niPopSD,
+                    input$niPopMn + 2*input$niPopSD))
       abline(v = input$niPopMn, 
              col = "#de3765", 
              lty = 2, lwd = 2)

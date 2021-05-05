@@ -85,8 +85,14 @@ shinyApp(
     newSample = reactive({
       
       locDummy = input$butRedraw
-      
+
+      req(input$niSampleN)
+      req(input$niSampleSz)
+      req(input$niPopMn)
+      req(input$niPopSD)
+            
       locNrowCurr = nrow(rv$datAggr)
+      
       
       locDT = data.table(x = rnorm(input$niSampleN * input$niSampleSz, 
                                    mean = input$niPopMn,

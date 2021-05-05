@@ -112,6 +112,11 @@ shinyApp(
     
     getSample = reactive({
       locDummy = input$butRedraw
+      
+      req(input$niSampleSz)
+      req(input$niPopMn)
+      req(input$niPopSD)
+      
       return(rnorm(n = input$niSampleSz, 
                    mean = input$niPopMn, 
                    sd = input$niPopSD))
