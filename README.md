@@ -13,6 +13,6 @@ Covers following topics:
 - hypothesis testing,
 - type I and II errors.
 
-The R markdown file `statsBasicsDynamics.Rmd` contains the presentation with R/Shiny widgets to interactively explore the above concepts. To view it, open the file in RStudio and click *Run Presentation*.
+The R markdown file `statsBasicsDynamic.Rmd` contains the presentation with R/Shiny widgets to interactively explore the above concepts. To view it, open the file in RStudio and click *Run Presentation*.
 
 The R markdown file `statsBasicsStatic.Rmd` contains a static version of the presentation. Once opened in RStudio, it can be converted (*knitted*) into a standalone HTML file, a PDF or a PowerPoint presentation.
