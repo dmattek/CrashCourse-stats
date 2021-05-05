@@ -125,13 +125,12 @@ fPlotShadedTdist = function(nSz,
 
 This lecture is based on the [Minitab Blog](https://blog.minitab.com/en/adventures-in-statistics-2/understanding-hypothesis-tests-why-we-need-to-use-hypothesis-tests-in-statistics) series.
 
-The presentation is prepared with [R Markdown](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html). The source code is available on [GitHub](https://github.com/dmattek/CrashCourse-stats).
+The presentation is prepared with [R Markdown](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html). 
 
-Other resources:
+Navigate the presentation with arrow keys. Press `o` to switch to the overview.
 
-* [Comprehensive Confidence Intervals for Python Developers](https://aegis4048.github.io/comprehensive_confidence_intervals_for_python_developers#population_vs_samples)
-* [Using t-tests in R](https://statistics.berkeley.edu/computing/r-t-tests)
-* [Everything You Need To Know about Hypothesis Testing](https://towardsdatascience.com/everything-you-need-to-know-about-hypothesis-testing-part-i-4de9abebbc8a)
+The source code is available on [GitHub](https://github.com/dmattek/CrashCourse-stats).
+
 
 ## Why We Need Hypothesis Tests? {.bigger}
 
@@ -802,3 +801,27 @@ The **confidence level** represents the percentage of intervals that would inclu
 > - If you draw a random sample many times, a certain percentage of CIs will contain the population parameter. 
 > - This percentage is the [confidence level](https://www.khanacademy.org/math/ap-statistics/estimating-confidence-ap/introduction-confidence-intervals/v/confidence-intervals-and-margin-of-error).
 </div>
+
+# Further reading
+
+---
+
+**Articles**
+
+- [The reign of the p-value is over: what alternative analyses could we employ to fill the power vacuum?](https://doi.org/10.1098/rsbl.2019.0174)
+- [Using Effect Size—or Why the P Value Is Not Enough](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3444174/)
+- [P-Values: Misunderstood and Misused](https://doi.org/10.3389/fphy.2016.00006)
+- [Error bars in experimental biology](https://dx.doi.org/10.1083%2Fjcb.200611141)
+- [What to use to express the variability of data: Standard deviation or standard error of mean?](https://dx.doi.org/10.4103%2F2229-3485.100662)
+
+**Blogs**
+
+- [Remember: p-values Are Not Effect Sizes](https://win-vector.com/2017/09/08/remember-p-values-are-not-effect-sizes/)
+- [Comprehensive Confidence Intervals for Python Developers](https://aegis4048.github.io/comprehensive_confidence_intervals_for_python_developers#population_vs_samples)
+- [Using t-tests in R](https://statistics.berkeley.edu/computing/r-t-tests)
+- [Everything You Need To Know about Hypothesis Testing](https://towardsdatascience.com/everything-you-need-to-know-about-hypothesis-testing-part-i-4de9abebbc8a)
+
+**Books**
+
+- [The Cult of Statistical Significance](https://www.press.umich.edu/186351/cult_of_statistical_significance)
+- [What If There Were No Significance Tests?](https://www.routledge.com/What-If-There-Were-No-Significance-Tests-Classic-Edition/Harlow-Mulaik-Steiger/p/book/9781138892477)
