@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/363773839.svg)](https://doi.org/10.5281/zenodo.17201487)
+
 # Crash-course in hypothesis testing
 
 This presentation is based on the [Minitab Blog](https://blog.minitab.com/en/adventures-in-statistics-2/understanding-hypothesis-tests-why-we-need-to-use-hypothesis-tests-in-statistics) series.
